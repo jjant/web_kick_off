@@ -7,10 +7,10 @@ var babel = require('gulp-babel');
 var pug = require('gulp-pug');
 var watch = require('gulp-watch');
 var scss = require('gulp-scss');
-
+var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', function(cb) {
-  runSequence('clean', 'js', 'scss', 'pug', 'watch', cb);
+  runSequence('clean', 'js', 'scss', 'pug', 'prefix', 'watch', cb);
 });
 
 gulp.task('watch', function(cb) {
@@ -44,4 +44,13 @@ gulp.task('js', function() {
 
 gulp.task('clean', function() {
   return del('dist');
+});
+
+gulp.task('prefix', function() {
+  return gulp.src("dist/style/main.css")
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
+    .pipe(gulp.dest('dist/style'))
 });
