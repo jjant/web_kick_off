@@ -30,6 +30,7 @@ gulp.task('sass', function() {
 
 gulp.task('pug', function() {
   return gulp.src("src/**/*.pug")
+    .pipe(plumber())
     .pipe(pug())
     .pipe(gulp.dest('dist'))
 });
