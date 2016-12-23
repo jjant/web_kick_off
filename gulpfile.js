@@ -6,23 +6,23 @@ var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 var pug = require('gulp-pug');
 var watch = require('gulp-watch');
-var scss = require('gulp-scss');
+var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', function(cb) {
-  runSequence('clean', 'js', 'scss', 'pug', 'prefix', 'watch', cb);
+  runSequence('clean', 'js', 'sass', 'pug', 'prefix', 'watch', cb);
 });
 
 gulp.task('watch', function(cb) {
-  gulp.watch('src/style/**/*.scss', ['scss']);
+  gulp.watch('src/style/**/*.scss', ['sass']);
   gulp.watch('src/**/*.js', ['js']);
   gulp.watch('src/**/*.pug', ['pug']);
   return cb;
 });
 
-gulp.task('scss', function() {
+gulp.task('sass', function() {
   return gulp.src('src/**/*.scss')
-    .pipe(scss().on('error', console.error))
+    .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist'))
 });
 
