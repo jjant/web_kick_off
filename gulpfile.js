@@ -8,6 +8,7 @@ var pug = require('gulp-pug');
 var watch = require('gulp-watch');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
+var plumber = require('gulp-plumber');
 
 gulp.task('default', function(cb) {
   runSequence('clean', 'js', 'sass', 'pug', 'prefix', 'watch', cb);
@@ -22,6 +23,7 @@ gulp.task('watch', function(cb) {
 
 gulp.task('sass', function() {
   return gulp.src('src/**/*.scss')
+    .pipe(plumber())
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist'))
 });
@@ -34,6 +36,7 @@ gulp.task('pug', function() {
 
 gulp.task('js', function() {
   return gulp.src("src/**/*.js")
+    .pipe(plumber())
     .pipe(concat('index.js'))
     .pipe(babel({
       presets: ['es2015']
